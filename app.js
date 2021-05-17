@@ -27,6 +27,17 @@ app.post("/create/todo", (req, res) => {
         res.json(error);
     }
 });
+
+//Practice Q4
+app.get("/todos/completed", (req, res) => {
+    todoModel.find({ isCompleted: true})
+        .then((allTodos) => {
+            res.send(allTodos);
+        })
+        .catch((error) => {
+            res.send(error)
+        });
+})
 app.put("/update/todo", (req, res) => {});
 app.delete("/delete/todo", (req, res) => {});
 
