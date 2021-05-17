@@ -6,8 +6,17 @@ const app = express();
 app.use(express.json());
 
 
-
-app.get("/todos", (req, res) => {});
+//Practice Q3
+app.get("/todos", (req, res) => {
+    todoModel.find({})
+        .then((allTodos) => {
+            res.send(allTodos);
+        })
+        .catch((error) => {
+            res.send(error)
+        });
+});
+//Practice Q1
 app.post("/create/todo", (req, res) => {
     const {task, description, deadline, isCompleted, priority} = req.body;
     const todo = new todoModel({task, description, deadline, isCompleted, priority});
