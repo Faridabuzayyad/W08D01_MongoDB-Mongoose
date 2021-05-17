@@ -38,8 +38,16 @@ app.get("/todos/completed", (req, res) => {
             res.send(error)
         });
 })
-app.put("/update/todo", (req, res) => {});
-app.delete("/delete/todo", (req, res) => {});
+
+//Practice Q5
+app.put("/update/todo", (req, res) => {
+    const newTodo = req.send.body;
+    todoModel.findOneAndUpdate
+});
+app.delete("/delete/todo", (req, res) => {
+    const newTodo = req.send.body;
+    todoModel.findOneAndDelete
+});
 
 
 
