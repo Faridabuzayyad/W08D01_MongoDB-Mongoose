@@ -40,9 +40,9 @@ app.get("/todos/completed", async (req, res) => {
 //Practice Q5
 app.put("/update/todo", async (req, res) => {
     const {description, deadline, isCompleted, priority} = req.body;
-    const condition = req.body.task;
+    const taskToUpdate = req.body.task;
     const options = {"new" : true};
-    const itemAfterUpdate = await todoModel.findOneAndUpdate(condition,{description, deadline, isCompleted, priority}, options);
+    const itemAfterUpdate = await todoModel.findOneAndUpdate(taskToUpdate,{description, deadline, isCompleted, priority}, options);
     try {
         res.json(itemAfterUpdate);
     } catch (error) {
@@ -52,9 +52,14 @@ app.put("/update/todo", async (req, res) => {
 
 
 //Practice Q6
-app.delete("/delete/todo", (req, res) => {
-    const deletedTodo = req.send.body;
-    todoModel.findOneAndDelete
+app.delete("/delete/todo", async (req, res) => {
+    const taskToDelete = req.body.task;
+    const deletedItem = await todoModel.findOneAndDelete(taskToDelete);
+    try {
+        res.json(deletedItem);
+    } catch (error) {
+        res.json(error);
+    }
 });
 
 
