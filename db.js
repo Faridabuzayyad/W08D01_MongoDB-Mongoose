@@ -8,7 +8,8 @@ const options = {
   }
 
   
-mongoose.connect("mongodb://localhost:27017/Homework_DB", options).then(
+mongoose.connect("mongodb://localhost:27017/Homework_DB", options).
+then(
     ()=>{console.log("Db connected");},
     (err)=>{console.log(err);}
 )

@@ -7,17 +7,16 @@ app.use(express.json());
 
 
 //Practice Q3
-app.get("/todos", (req, res) => {
-    todoModel.find({})
-        .then((allTodos) => {
-            res.send(allTodos);
-        })
-        .catch((error) => {
-            res.send(error)
-        });
+app.get("/todos", async (req, res) => {
+    const todoDocument = await todoModel.find({})
+    try {
+        res.json(todoDocument);
+    } catch (error) {
+        res.json(error);
+    }
 });
 //Practice Q1
-app.post("/create/todo", (req, res) => {
+app.post("/create/todo", async (req, res) => {
     const {task, description, deadline, isCompleted, priority} = req.body;
     const todo = new todoModel({task, description, deadline, isCompleted, priority});
     try {
@@ -29,14 +28,13 @@ app.post("/create/todo", (req, res) => {
 });
 
 //Practice Q4
-app.get("/todos/completed", (req, res) => {
-    todoModel.find({ isCompleted: true})
-        .then((allTodos) => {
-            res.send(allTodos);
-        })
-        .catch((error) => {
-            res.send(error)
-        });
+app.get("/todos/completed", async (req, res) => {
+    const completedTodos = await todoModel.find({isCompleted: true})
+    try {
+        res.json(completedTodos);
+    } catch (error) {
+        res.json(error);
+    }
 })
 
 //Practice Q5
@@ -45,7 +43,7 @@ app.put("/update/todo", (req, res) => {
     todoModel.findOneAndUpdate
 });
 app.delete("/delete/todo", (req, res) => {
-    const newTodo = req.send.body;
+    const deletedTodo = req.send.body;
     todoModel.findOneAndDelete
 });
 
