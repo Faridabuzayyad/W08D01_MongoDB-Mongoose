@@ -38,10 +38,20 @@ app.get("/todos/completed", async (req, res) => {
 })
 
 //Practice Q5
-app.put("/update/todo", (req, res) => {
-    const newTodo = req.send.body;
-    todoModel.findOneAndUpdate
+app.put("/update/todo", async (req, res) => {
+    const {description, deadline, isCompleted, priority} = req.body;
+    const condition = req.body.task;
+    const options = {"new" : true};
+    const itemAfterUpdate = await todoModel.findOneAndUpdate(condition,{description, deadline, isCompleted, priority}, options);
+    try {
+        res.json(itemAfterUpdate);
+    } catch (error) {
+        res.json(error);
+    }
 });
+
+
+//Practice Q6
 app.delete("/delete/todo", (req, res) => {
     const deletedTodo = req.send.body;
     todoModel.findOneAndDelete
